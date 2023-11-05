@@ -9,7 +9,7 @@ class Engine(ABC):
         pass
 
     @abstractmethod
-    def get_vacancies(self):
+    def get_vacancies(self, keyword, count_page):
         pass
 
     @abstractmethod
