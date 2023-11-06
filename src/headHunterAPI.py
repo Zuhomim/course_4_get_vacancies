@@ -14,7 +14,7 @@ class HeadHunterAPI(Engine):
         params = {
             "page": 0,
             "per_page": 50,
-            "text": keyword,
+            "text": keyword.lower(),
         }
         all_vacancies = []
         vacancies = requests.get("https://api.hh.ru/vacancies", params=params).json()["items"]
@@ -25,9 +25,9 @@ class HeadHunterAPI(Engine):
 
         return all_vacancies
 
-    def get_vacancies(self, keyword, count_page):
+    def get_vacancies(self, keyword, count_page=5):
         all_vacancies = []
-        vacancies = self.get_request(keyword, count_page)
+        vacancies = self.get_request(keyword.lower(), count_page)
         for vacancy in vacancies:
             if vacancy["salary"]:
                 salary_from = vacancy["salary"]["from"] if vacancy["salary"]["from"] else 0
@@ -49,7 +49,3 @@ class HeadHunterAPI(Engine):
 
     def get_filtered_vacancies(self):
         pass
-
-
-hh = HeadHunterAPI()
-print(hh.get_vacancies("python", 2))
